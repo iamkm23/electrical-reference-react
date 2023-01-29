@@ -1,25 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  About,
+  Calculator,
+  Download,
+  SingleDownload,
+  Home,
+  Error,
+  SharedNavbar,
+} from "./pages";
+
+import { Navbar } from "./components";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<SharedNavbar />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+
+          <Route path="download">
+            <Route index element={<Download />} />
+            <Route path=":bookId" element={<SingleDownload />} />
+          </Route>
+
+          <Route path="/calculator" element={<Calculator />} />
+          <Route path="/calculator/:calculatorId" element={<Calculator />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
 export default App;
+
+{
+  /* <Route path="/" element={<Navbar />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+
+          <Route path="download" element={<Navbar />}>
+            <Route index element={<Download />} />
+            <Route path=":downloadId" element={<SingleDownload />} />
+          </Route>
+
+          <Route path="calculator" element={<Navbar />}>
+            <Route index element={<Calculator />} />
+            <Route path=":calculatorId" element={<SingleDownload />} />
+          </Route>
+
+          <Route path="*" element={<Error />} />
+        </Route> */
+}
